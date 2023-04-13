@@ -6,7 +6,7 @@
 Skills: HTML | CSS | Python Básico |
 
   
-- 🌱 Estudando JavaScript, React e SQL.  
+- 🌱 Estudando JavaScript, Python, React e SQL.  
 
   
    
