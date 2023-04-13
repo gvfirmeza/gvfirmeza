@@ -1,5 +1,5 @@
 ## Olá 👋, meu nome é Guilherme Firmeza
-### Eu sou um estudante de Full Stack Development na IBMEC.
+### Atualmente eu estudo Full Stack Development na IBMEC.
 
 <img src="/resources/github-header-image.png" width="650"/>
 
