@@ -1,7 +1,7 @@
 ## Olá 👋, meu nome é Guilherme Firmeza
 ### Eu sou um estudante de Full Stack Development na IBMEC.
 
-![gvfirmeza](/resources/github-header-image.png).
+![gvfirmeza](/resources/github-header-image.png)
 
 Skills: HTML | CSS | Python Básico |
 
