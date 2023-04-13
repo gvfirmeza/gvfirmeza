@@ -1,9 +1,10 @@
 ## Olá 👋, meu nome é Guilherme Firmeza
 
-I am currently studying Full Stack Development in IBMEC
+Eu sou um estudante de Full Stack Development na IBMEC.
 
 Skills: HTML | CSS | Python Básico |
 
+  
 - 🌱 Estudando JavaScript, React e SQL.  
 
   
