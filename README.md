@@ -3,7 +3,7 @@
 
 <img src="/resources/github-header-image.png" width="650"/>
 
-Skills: HTML | CSS | Python Básico |
+Skills: HTML | CSS | Python | React |
 
   
 - 🌱 Estudando JavaScript, Python, React e SQL.  
