@@ -3,7 +3,7 @@
 
 <img src="/resources/github-header-image.png" width="650"/>
 
-Skills: HTML | CSS | JS | Python | React | 
+Skills: HTML | CSS | JS | React | Java | Python | Flask | 
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=gvfirmeza)](https://github.com/anuraghazra/github-readme-stats)
 
