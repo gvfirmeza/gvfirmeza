@@ -1,7 +1,4 @@
 ## Olá 👋🏼, meu nome é Guilherme Firmeza
-### Atualmente eu estudo Full Stack Development na IBMEC.
-
-<img src="/resources/github-header-image.png" width="650"/>
 
 Skills: HTML | CSS | JS | React | Java | Python | Flask | 
 
