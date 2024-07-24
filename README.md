@@ -1,8 +1,10 @@
-## Olá 👋🏼, meu nome é Guilherme Firmeza
+## Hello 👋🏼, my name is Guilherme Firmeza
 
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=gvfirmeza&theme=dark&hide=stars&show_icons=true)
+![Gvfirmeza's GitHub stats](https://github-readme-stats.vercel.app/api?username=gvfirmeza&theme=dark&hide=stars&show_icons=true&ring_color=79ff97)
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=gvfirmeza&layout=compact&theme=dark&hide_progress=true)](https://github.com/anuraghazra/github-readme-stats)
+
+
 
 
 
