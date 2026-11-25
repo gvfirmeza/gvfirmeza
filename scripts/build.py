@@ -1,4 +1,4 @@
-"""Builds assets/profile.svg for the GitHub profile README.
+"""Builds assets/card.svg for the GitHub profile README.
 
 Standard library only, run by hand: `python scripts/build.py`.
 With a token in GH_TOKEN it first refreshes data/stats.json (company,
@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 STATS = ROOT / "data" / "stats.json"
 ICONS = ROOT / "scripts" / "icons.json"
 SPRITE = ROOT / "assets" / "computer.png"
-OUT = ROOT / "assets" / "profile.svg"
+OUT = ROOT / "assets" / "card.svg"
 
 # ---------------------------------------------------------------- data
 
