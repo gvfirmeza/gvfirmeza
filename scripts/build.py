@@ -18,7 +18,8 @@ LOGIN = "gvfirmeza"
 ROOT = Path(__file__).resolve().parent.parent
 STATS = ROOT / "data" / "stats.json"
 ICONS = ROOT / "scripts" / "icons.json"
-SPRITE = ROOT / "assets" / "computer.png"
+SPRITE = ROOT / "assets" / "computer-sheet.png"  # 36 frames side by side
+FRAMES, FW, FH = 36, 322, 284
 OUT = ROOT / "assets" / "card.svg"
 
 # ---------------------------------------------------------------- data
@@ -132,10 +133,8 @@ def build(stats):
     add(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
         f'font-family="{MONO}">')
     add('<style>.cur{animation:b 1.1s steps(1) infinite}@keyframes b{50%{opacity:0}}'
-        '.fl{animation:fl 4s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-7px)}}'
-        '.sh{transform-box:fill-box;transform-origin:center;animation:sh 4s ease-in-out infinite}'
-        '@keyframes sh{50%{transform:scaleX(.8);opacity:.45}}'
-        '@media (prefers-reduced-motion:reduce){.cur,.fl,.sh{animation:none}}</style>')
+        f'.spr{{animation:spr 6s steps({FRAMES}) infinite}}@keyframes spr{{to{{transform:translateX(-{FRAMES * FW}px)}}}}'
+        '@media (prefers-reduced-motion:reduce){.cur,.spr{animation:none}}</style>')
     add('<defs>')
     for i, p in enumerate(PATTERNS):
         add(f'<pattern id="p{i}" width="4" height="4" patternUnits="userSpaceOnUse">{p.format(c=TEXT)}</pattern>')
@@ -145,11 +144,11 @@ def build(stats):
     # ---- terminal panel
     px, py, pw, ph = 16, 16, W - 32, 352
     add(f'<rect x="{px}" y="{py}" width="{pw}" height="{ph}" rx="10" fill="{PANEL}" stroke="{LINE}"/>')
-    add(f'<ellipse class="sh" cx="180" cy="334" rx="112" ry="5" fill="#1c1c1c"/>')
-    add(f'<g class="fl"><image x="38" y="52" width="283" height="267" href="data:image/png;base64,{sprite}" '
-        'style="image-rendering:pixelated"/></g>')
+    add(f'<svg x="28" y="50" width="{FW}" height="{FH}" viewBox="0 0 {FW} {FH}" overflow="hidden">'
+        f'<g class="spr"><image width="{FRAMES * FW}" height="{FH}" href="data:image/png;base64,{sprite}" '
+        'style="image-rendering:pixelated"/></g></svg>')
 
-    x0, x1 = 350, W - 40
+    x0, x1 = 366, W - 40
     y = 58
     add(heading(x0, x1, y, "gvfirmeza@github"))
     y += 26
