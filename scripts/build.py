@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 STATS = ROOT / "data" / "stats.json"
 ICONS = ROOT / "scripts" / "icons.json"
 SPRITE = ROOT / "assets" / "computer-sheet.png"  # 36 frames side by side
-FRAMES, FW, FH = 36, 322, 284
+FRAMES, FW, FH = 24, 313, 262
 OUT = ROOT / "assets" / "card.svg"
 
 # ---------------------------------------------------------------- data
@@ -133,7 +133,7 @@ def build(stats):
     add(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
         f'font-family="{MONO}">')
     add('<style>.cur{animation:b 1.1s steps(1) infinite}@keyframes b{50%{opacity:0}}'
-        f'.spr{{animation:spr 6s steps({FRAMES}) infinite}}@keyframes spr{{to{{transform:translateX(-{FRAMES * FW}px)}}}}'
+        f'.spr{{animation:spr 7s steps({FRAMES}) infinite}}@keyframes spr{{to{{transform:translateX(-{FRAMES * FW}px)}}}}'
         '@media (prefers-reduced-motion:reduce){.cur,.spr{animation:none}}</style>')
     add('<defs>')
     for i, p in enumerate(PATTERNS):
@@ -144,7 +144,7 @@ def build(stats):
     # ---- terminal panel
     px, py, pw, ph = 16, 16, W - 32, 352
     add(f'<rect x="{px}" y="{py}" width="{pw}" height="{ph}" rx="10" fill="{PANEL}" stroke="{LINE}"/>')
-    add(f'<svg x="28" y="50" width="{FW}" height="{FH}" viewBox="0 0 {FW} {FH}" overflow="hidden">'
+    add(f'<svg x="32" y="61" width="{FW}" height="{FH}" viewBox="0 0 {FW} {FH}" overflow="hidden">'
         f'<g class="spr"><image width="{FRAMES * FW}" height="{FH}" href="data:image/png;base64,{sprite}" '
         'style="image-rendering:pixelated"/></g></svg>')
 
