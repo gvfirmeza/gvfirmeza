@@ -1,8 +1,8 @@
 """Builds assets/profile.svg for the GitHub profile README.
 
-Standard library only. When a token is available (GH_TOKEN), it refreshes
-data/stats.json from the GitHub GraphQL API; otherwise, or if the API call
-fails, it keeps the last saved numbers.
+Standard library only, run by hand: `python scripts/build.py`.
+With a token in GH_TOKEN it first refreshes data/stats.json (company,
+location, top languages) from the GitHub API; without one it uses the saved file.
 """
 
 import base64
@@ -10,7 +10,7 @@ import json
 import os
 import sys
 import urllib.request
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -87,20 +87,6 @@ def fetch(token):
     }
 
 
-def uptime(created_at):
-    a = datetime.fromisoformat(created_at.replace("Z", "+00:00")).date()
-    b = date.today()
-    y, m, d = b.year - a.year, b.month - a.month, b.day - a.day
-    if d < 0:
-        m -= 1
-        prev = (b.replace(day=1) - date.resolution)
-        d += prev.day
-    if m < 0:
-        y -= 1
-        m += 12
-    plural = lambda n, w: f"{n} {w}{'' if n == 1 else 's'}"
-    return f"{plural(y, 'year')}, {plural(m, 'month')}, {plural(d, 'day')}"
-
 # ---------------------------------------------------------------- svg
 
 W, H = 860, 586
@@ -146,7 +132,10 @@ def build(stats):
     add(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
         f'font-family="{MONO}">')
     add('<style>.cur{animation:b 1.1s steps(1) infinite}@keyframes b{50%{opacity:0}}'
-        '@media (prefers-reduced-motion:reduce){.cur{animation:none}}</style>')
+        '.fl{animation:fl 4s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-7px)}}'
+        '.sh{transform-box:fill-box;transform-origin:center;animation:sh 4s ease-in-out infinite}'
+        '@keyframes sh{50%{transform:scaleX(.8);opacity:.45}}'
+        '@media (prefers-reduced-motion:reduce){.cur,.fl,.sh{animation:none}}</style>')
     add('<defs>')
     for i, p in enumerate(PATTERNS):
         add(f'<pattern id="p{i}" width="4" height="4" patternUnits="userSpaceOnUse">{p.format(c=TEXT)}</pattern>')
@@ -156,18 +145,19 @@ def build(stats):
     # ---- terminal panel
     px, py, pw, ph = 16, 16, W - 32, 352
     add(f'<rect x="{px}" y="{py}" width="{pw}" height="{ph}" rx="10" fill="{PANEL}" stroke="{LINE}"/>')
-    add(f'<image x="38" y="58" width="283" height="267" href="data:image/png;base64,{sprite}" '
-        'style="image-rendering:pixelated"/>')
+    add(f'<ellipse class="sh" cx="180" cy="334" rx="112" ry="5" fill="#1c1c1c"/>')
+    add(f'<g class="fl"><image x="38" y="52" width="283" height="267" href="data:image/png;base64,{sprite}" '
+        'style="image-rendering:pixelated"/></g>')
 
     x0, x1 = 350, W - 40
     y = 58
     add(heading(x0, x1, y, "gvfirmeza@github"))
     y += 26
     info = [
-        ("Uptime", uptime(stats["created_at"])),
         ("Role", "Software & AI Engineer"),
         ("Company", stats.get("company")),
         ("Location", stats.get("location")),
+        ("Coding since", "2023"),
         ("Stack", "Angular, React, Java, Python"),
     ]
     for label, value in info:
@@ -175,19 +165,16 @@ def build(stats):
             add(row(x0, x1, y, label, value))
             y += 21
     y += 14
+    add(heading(x0, x1, y, "Focus"))
+    y += 26
+    add(row(x0, x1, y, "Building", "Web apps, data pipelines, LLM agents"))
+    y += 35
     add(heading(x0, x1, y, "Contact"))
     y += 26
     add(row(x0, x1, y, "GitHub", "github.com/gvfirmeza"))
     y += 21
     add(row(x0, x1, y, "LinkedIn", "in/guilherme-firmeza"))
-    y += 35
-    add(heading(x0, x1, y, "GitHub Stats"))
-    y += 26
-    mid = (x0 + x1) // 2
-    add(row(x0, mid - 14, y, "Repos", stats["repos"]) + row(mid + 14, x1, y, "Stars", stats["stars"]))
-    y += 21
-    add(row(x0, mid - 14, y, "Commits", stats["commits"]) + row(mid + 14, x1, y, "Followers", stats["followers"]))
-    y += 30
+    y += 34
     add(t(x0, y, ">", TEXT, mask=False) + f'<rect class="cur" x="{x0 + 14}" y="{y - 11}" width="8" height="13" fill="{TEXT}"/>')
 
     # ---- languages
